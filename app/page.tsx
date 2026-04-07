@@ -1,232 +1,84 @@
-import { Metadata } from "next";
+'use client';
 
-import { Button } from "../components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../components/ui/card";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../components/ui/tabs";
-import { CalendarDateRangePicker } from "../components/dashboard/date-range-picker";
-import { MainNav } from "../components/dashboard/main-nav";
-import { Overview } from "../components/dashboard/overview";
-import { RecentSales } from "../components/dashboard/recent-sales";
-import { Search } from "../components/dashboard/search";
-import { SignIn } from "../components/dashboard/signIn";
-import { auth } from "@/auth";
-import { ModeToggle } from "@/components/ui/ModeToggle";
+import { useState, useEffect } from 'react';
+import { signIn } from "next-auth/react";
 
-export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "Example dashboard app built using the components.",
-};
+export default function Home() {
+  const [timeLeft, setTimeLeft] = useState(10); // ← Cambia este número según quieras (segundos)
+  const [canVerify, setCanVerify] = useState(false);
 
-export default async function DashboardPage() {
-  const session = await auth();
-  if (!session)
-    return (
-      <>
-      <div className="border-b">
-        <div className="flex h-16 items-center px-4">
-          <MainNav className="mx-6" />
-          <div className="ml-auto flex items-center space-x-4">
-            <Search />
-            <ModeToggle />
-            <SignIn />
-          </div>
-        </div>
-      </div>
-      <div className="hidden md:grid place-items-center overflow-hidden" style={{ height: 'calc(100vh - 66px)' }}>
-        <div className="space-y-4 ">
-          <div className="flex items-center justify-center">
-            <h2 className="text-3xl font-bold tracking-tight text-center">
-              Dashboard
-            </h2>
-          </div>
-          <div className="flex items-center justify-center">
-            <Card>
-              <CardHeader className="flex items-center justify-center">
-                <CardTitle>⚠️ Protected Content</CardTitle>
-                <CardDescription>
-                  To view your dashboard, please sign in using discord.
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
-        </div>
-      </div>
-    </>
-    );
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+      return () => clearTimeout(timer);
+    } else {
+      setCanVerify(true);
+    }
+  }, [timeLeft]);
+
   return (
-    <>
-      <div className="hidden flex-col md:flex">
-        <div className="border-b">
-          <div className="flex h-16 items-center px-4">
-            <MainNav className="mx-6" />
-            <div className="ml-auto flex items-center space-x-4">
-              <Search />
-              <ModeToggle />
-              <SignIn />
-            </div>
-          </div>
-        </div>
-        <div className="flex-1 space-y-4 p-8 pt-6">
-          <div className="flex items-center justify-between space-y-2">
-            <h2 className="text-3xl font-bold tracking-tight">Welcome {session.user?.name}</h2>
-            <div className="flex items-center space-x-2">
-              <CalendarDateRangePicker />
-              <Button>Download</Button>
-            </div>
-          </div>
-          <Tabs defaultValue="overview" className="space-y-4">
-            <TabsList>
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="analytics" disabled>
-                Analytics
-              </TabsTrigger>
-              <TabsTrigger value="reports" disabled>
-                Reports
-              </TabsTrigger>
-              <TabsTrigger value="notifications" disabled>
-                Notifications
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="overview" className="space-y-4">
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Total Revenue
-                    </CardTitle>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="h-4 w-4 text-muted-foreground"
-                    >
-                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                    </svg>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">$45,231.89</div>
-                    <p className="text-xs text-muted-foreground">
-                      +20.1% from last month
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Subscriptions
-                    </CardTitle>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="h-4 w-4 text-muted-foreground"
-                    >
-                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                      <circle cx="9" cy="7" r="4" />
-                      <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-                    </svg>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">+2350</div>
-                    <p className="text-xs text-muted-foreground">
-                      +180.1% from last month
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Sales</CardTitle>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="h-4 w-4 text-muted-foreground"
-                    >
-                      <rect width="20" height="14" x="2" y="5" rx="2" />
-                      <path d="M2 10h20" />
-                    </svg>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">+12,234</div>
-                    <p className="text-xs text-muted-foreground">
-                      +19% from last month
-                    </p>
-                  </CardContent>
-                </Card>
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Active Now
-                    </CardTitle>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      className="h-4 w-4 text-muted-foreground"
-                    >
-                      <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                    </svg>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">+573</div>
-                    <p className="text-xs text-muted-foreground">
-                      +201 since last hour
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <Card className="col-span-4">
-                  <CardHeader>
-                    <CardTitle>Overview</CardTitle>
-                  </CardHeader>
-                  <CardContent className="pl-2">
-                    <Overview />
-                  </CardContent>
-                </Card>
-                <Card className="col-span-3">
-                  <CardHeader>
-                    <CardTitle>Recent Sales</CardTitle>
-                    <CardDescription>
-                      You made 265 sales this month.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <RecentSales />
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
-          </Tabs>
-        </div>
+    <div className="min-h-screen bg-[#36393f] flex flex-col items-center justify-center p-6 text-white">
+      
+      {/* Imagen arriba */}
+      <div className="mb-10">
+        <img 
+          src=https://www.google.com/imgres?q=fotos%20de%20animales%20gatos%20random%20pinterest&imgurl=https%3A%2F%2Fi.pinimg.com%2F236x%2Fc6%2F26%2F8f%2Fc6268f6ea32c231f9f1134ee3821dc2b.jpg&imgrefurl=https%3A%2F%2Fes.pinterest.com%2Fideas%2Fimagenes-random-gatos%2F900904094393%2F&docid=67AIczHGDLnfvM&tbnid=rnP5wQY6kjjCsM&vet=12ahUKEwiUuYDi89uTAxVUPbkGHdtxHWgQnPAOegQISRAB..i&w=236&h=341&hcb=2&ved=2ahUKEwiUuYDi89uTAxVUPbkGHdtxHWgQnPAOegQISRAB 
+          alt="Logo de tu servidor"
+          className="w-56 h-56 object-contain rounded-3xl shadow-2xl"
+        />
       </div>
-    </>
+
+      {/* Título y texto */}
+      <h1 className= CNZ DUCALE>
+        Verificación del Servidor
+      </h1>
+      
+      <p className="text-xl text-gray-300 text-center max-w-md mb-8">
+        Inicia sesión con Discord para desbloquear <span className="text-white">todos los canales</span> ocultos
+      </p>
+
+      {/* Reglas (obligatorio leer) */}
+      <div className="max-w-md w-full bg-[#2f3136] p-6 rounded-2xl mb-10 text-sm text-gray-300 border border-gray-600">
+        <p className="font-semibold text-white mb-3">📜 Unicas 6 reglas:</p>
+        <ul className="list-disc list-inside space-y-2">
+          <li>No spam ni flood</li>
+          <li>Respeta a los demás miembros</li>
+          <li>No compartir contenido NSFW</li>
+          <li>No hacer publicidad sin permiso</li>
+          <li>Usa los canales correctamente</li>
+          {/* Agrega aquí todas las reglas que quieras */}
+        </ul>Lo q sucede en CNZ DUCALE se queda en CNZ DUCALE
+        <p className="mt-4 text-xs text-gray-400">
+          Al verificar aceptas automáticamente estas reglas.
+        </p>
+      </div>
+
+      {/* Botón con tiempo de espera */}
+      <button
+        onClick={() => canVerify && signIn("discord")}
+        disabled={!canVerify}
+        className={`w-full max-w-xs font-semibold text-xl py-5 px-10 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 ${
+          canVerify 
+            ? 'bg-[#5865F2] hover:bg-[#4752C4] text-white' 
+            : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+        }`}
+      >
+        {canVerify ? (
+          <>
+            <span className="text-3xl">🔑</span>
+            Verificar con Discord
+          </>
+        ) : (
+          <>
+            <span className="text-2xl">⏳</span>
+            Espera {timeLeft} segundos para verificar...
+          </>
+        )}
+      </button>
+
+      <p className="text-xs text-gray-500 mt-12 text-center">
+        Seguro • Rápido • Solo necesitas tu cuenta de Discord
+      </p>
+    </div>
   );
 }
