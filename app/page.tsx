@@ -22,7 +22,7 @@ export default function Home() {
       {/* Imagen arriba */}
       <div className="mb-10">
         <img 
-          src="/logo.jpg"
+          src="/descarga.jpg"
           alt="Logo de tu servidor"
           className="w-56 h-56 object-contain rounded-3xl shadow-2xl"
         />
