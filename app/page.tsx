@@ -31,7 +31,7 @@ export default function Home() {
       {/* Título y texto */}
       <h1 className="text-4xl font-bold mb-4"> 
       CNZ DUCALE
-      </h1>
+      <br />
         Verificación del Servidor
       </h1>
       
