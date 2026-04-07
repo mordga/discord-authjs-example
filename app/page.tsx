@@ -29,7 +29,9 @@ export default function Home() {
       </div>
 
       {/* Título y texto */}
-      <h1 className="CNZ DUCALE">
+      <h1 className="text-4xl font-bold mb-4"> 
+      CNZ DUCALE
+      </h1>
         Verificación del Servidor
       </h1>
       
@@ -48,7 +50,7 @@ export default function Home() {
           <li>Usa los canales correctamente</li>
           {/* Agrega aquí todas las reglas que quieras */}
         </ul>
-        <p className="mt-3 text-xs text-gray-400">
+        <p className="mt-3">
         Lo q sucede en CNZ DUCALE se queda en CNZ DUCALE
         </p>
         <p className="mt-4 text-xs text-gray-400">
