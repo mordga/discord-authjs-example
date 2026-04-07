@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { signIn } from "next-auth/react";
 
 export default function Home() {
-  const [timeLeft, setTimeLeft] = useState(10); // ← Cambia este número según quieras (segundos)
+  const [timeLeft, setTimeLeft] = useState(15); // ← Cambia este número según quieras (segundos)
   const [canVerify, setCanVerify] = useState(false);
 
   useEffect(() => {
@@ -32,29 +32,31 @@ export default function Home() {
       <h1 className="text-4xl font-bold mb-4"> 
       CNZ DUCALE
       <br />
-        Verificación del Servidor
+        
       </h1>
       
       <p className="text-xl text-gray-300 text-center max-w-md mb-8">
-        Inicia sesión con Discord para desbloquear <span className="text-white">todos los canales</span> ocultos
+        inicia secion para acceder a las herramientas 
       </p>
 
       {/* Reglas (obligatorio leer) */}
       <div className="max-w-md w-full bg-[#2f3136] p-6 rounded-2xl mb-10 text-sm text-gray-300 border border-gray-600">
-        <p className="font-semibold text-white mb-3">📜 Unicas 6 reglas:</p>
+        <p className="font-semibold text-white mb-3">📜 Unicas 7 reglas:</p>
         <ul className="list-disc list-inside space-y-2">
           <li>No spam ni flood</li>
           <li>Respeta a los demás miembros</li>
           <li>No compartir contenido NSFW</li>
           <li>No hacer publicidad sin permiso</li>
           <li>Usa los canales correctamente</li>
+          <li>Lo q sucede en CNZ DUCALE se queda en CNZ DUCALE</li>
           {/* Agrega aquí todas las reglas que quieras */}
         </ul>
         <p className="mt-3">
-        Lo q sucede en CNZ DUCALE se queda en CNZ DUCALE
+        Esto no es un juego, tomalo en serio 
+          Al verificarte te comprometes a no difundir las conversaciones dentro de ducale y si nos enteramos de q compartiste informacion seras castigado
         </p>
         <p className="mt-4 text-xs text-gray-400">
-          Al verificar aceptas automáticamente estas reglas.
+          Al verificar aceptas automáticamente estas reglas y te comprometes a guardar todo tipo de inormacion dentro de Ducale 
         </p>
       </div>
 
@@ -82,7 +84,7 @@ export default function Home() {
       </button>
 
       <p className="text-xs text-gray-500 mt-12 text-center">
-        Seguro • Rápido • Solo necesitas tu cuenta de Discord
+        Uso de malware • Rápido • Confianza 
       </p>
     </div>
   );
