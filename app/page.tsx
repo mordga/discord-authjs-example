@@ -22,7 +22,7 @@ export default function Home() {
       {/* Imagen arriba */}
       <div className="mb-10">
         <img 
-          src=https://www.google.com/imgres?q=fotos%20de%20animales%20gatos%20random%20pinterest&imgurl=https%3A%2F%2Fi.pinimg.com%2F236x%2Fc6%2F26%2F8f%2Fc6268f6ea32c231f9f1134ee3821dc2b.jpg&imgrefurl=https%3A%2F%2Fes.pinterest.com%2Fideas%2Fimagenes-random-gatos%2F900904094393%2F&docid=67AIczHGDLnfvM&tbnid=rnP5wQY6kjjCsM&vet=12ahUKEwiUuYDi89uTAxVUPbkGHdtxHWgQnPAOegQISRAB..i&w=236&h=341&hcb=2&ved=2ahUKEwiUuYDi89uTAxVUPbkGHdtxHWgQnPAOegQISRAB 
+          src="/logo.jpg"
           alt="Logo de tu servidor"
           className="w-56 h-56 object-contain rounded-3xl shadow-2xl"
         />
