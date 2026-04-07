@@ -29,7 +29,7 @@ export default function Home() {
       </div>
 
       {/* Título y texto */}
-      <h1 className= CNZ DUCALE>
+      <h1 className="CNZ DUCALE">
         Verificación del Servidor
       </h1>
       
@@ -47,7 +47,10 @@ export default function Home() {
           <li>No hacer publicidad sin permiso</li>
           <li>Usa los canales correctamente</li>
           {/* Agrega aquí todas las reglas que quieras */}
-        </ul>Lo q sucede en CNZ DUCALE se queda en CNZ DUCALE
+        </ul>
+        <p className="mt-3 text-xs text-gray-400">
+        Lo q sucede en CNZ DUCALE se queda en CNZ DUCALE
+        </p>
         <p className="mt-4 text-xs text-gray-400">
           Al verificar aceptas automáticamente estas reglas.
         </p>
