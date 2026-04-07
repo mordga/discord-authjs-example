@@ -13,13 +13,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   callbacks: {
     async signIn({ user, account }) {
-      // Asignar rol automáticamente
       if (account?.provider === "discord" && user?.id) {
         const guildId = process.env.GUILD_ID!;
         const roleId = process.env.VERIFIED_ROLE_ID!;
         const botToken = process.env.DISCORD_BOT_TOKEN!;
 
-        console.log(`🔄 Intentando asignar rol a usuario: ${user.id}`);
+        console.log(`🔄 INTENTO DE ASIGNACIÓN - Usuario: ${user.id} | Guild: ${guildId} | Role: ${roleId}`);
 
         try {
           const response = await fetch(
@@ -33,18 +32,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             }
           );
 
+          console.log(`📡 Respuesta de Discord: ${response.status} ${response.statusText}`);
+
           if (response.ok) {
-            console.log(`✅ Rol "Verificado" asignado correctamente a ${user.id}`);
+            console.log(`✅ ¡ÉXITO! Rol asignado a ${user.id}`);
           } else {
             const errorText = await response.text();
-            console.error(`❌ Error al asignar rol - Código ${response.status}:`, errorText);
+            console.error(`❌ ERROR Discord ${response.status}:`, errorText);
           }
         } catch (error: any) {
-          console.error("❌ Excepción al asignar rol:", error.message);
+          console.error("❌ Excepción en fetch:", error.message);
         }
       }
 
-      return true; // Siempre permitir el login
+      return true;
     },
   },
 });
