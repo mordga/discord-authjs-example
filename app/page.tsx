@@ -84,7 +84,7 @@ export default function Home() {
       </button>
 
       <p className="text-xs text-gray-500 mt-12 text-center">
-        Uso de malware • Rápido • Confianza 
+        Uso y venta de malware • Rápido • Confianza 
       </p>
     </div>
   );
